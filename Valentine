@@ -1,0 +1,165 @@
+// Forked from https://codepen.io/Gelsot/pen/VvWZJq
+// Modified by clickclickonsal
+@import url('https://fonts.googleapis.com/css?family=Lobster+Two:400i');
+
+@mixin heart($heart-width, $heart-height, $heart-piece-position, $heart-shadow-height, $heart-shadow-width, $highlight-right, $highlight-top) {
+  .heart {
+    width: $heart-width;
+    height: $heart-height;
+    margin: 1em auto;
+    padding: 4em;
+    position: relative;
+    animation: beat 1.5s infinite;
+  }
+
+  .left,
+  .right {
+    width: calc(#{$heart-width} / 2);
+    height: $heart-height;
+    background: tomato;
+    position: absolute;
+    display: inline-block;
+    border-radius: 150px 150px 0 0;
+  }
+
+  .left {
+    transform: rotate(-45deg);
+    right: $heart-piece-position;
+  }
+  .right {
+    transform: rotate(45deg);
+    left: $heart-piece-position;
+  }
+
+  .highlight {
+    width: 15px;
+    height: calc(#{$heart-height} / 3);
+    border-radius: 50%;
+    position: absolute;
+    background: linear-gradient(to right, transparent, 70%, rgba(255, 255, 255, 0.3));
+    right: $highlight-right;
+    top: $highlight-top;
+    transform: rotate(22deg) skew(1);
+  }
+
+  .shadow {
+    width: $heart-shadow-width;
+    height: $heart-shadow-height;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    margin: 6em auto 2em auto;
+    animation: beat-2 1.5s infinite;
+  }
+}
+
+@keyframes beat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.99);
+  }
+  60% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes beat-2 {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.99);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(0.7);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+html, body {
+  background: pink;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  font-size: 4em;
+  color: darken(pink, 20%);
+  font-family: 'Lobster Two', cursive;
+  word-wrap: break-word;
+}
+
+@include heart(240px, 200px, 89px, 12px, 50px, 30px, 100px);
+
+@media screen and (max-width: 800px) {
+  @include heart(120px, 100px, 48px, 6px, 20px, 15px, 80px);
+  h1 {
+    font-size: 3em;
+  }
+}
+
+.options {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+    
+    button {
+      color: darken(pink, 20%);
+      font-family: 'Lobster Two', cursive;
+      font-size: 3em;
+      background: none;
+      border: none;
+      margin: 0 1em;
+      &:hover {
+        background: white;
+      }
+    }
+}
+
+.emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  font-size: 10em;
+} <meta name="viewport" content="width=device-width">
+
+<h1>Will You Be My Valentine?</h1>
+
+<div class="heart">
+  <div class="left"></div>
+  <div class="right"></div>
+  <div class="highlight"></div>
+</div>
+<div class="shadow"></div>
+	
+<div class="options">
+  <button id="option-yes">Yes</button>
+  <button id="option-no">No</button>
+</div>
+$('#option-yes').on('click', () => {
+  $('body').html('<div class="emoji">😍</div>');
+});
+
+$('#option-no').on('click', () => {
+  $('body').html('<div class="emoji">😔</div>');
+});
